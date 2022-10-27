@@ -1,8 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AiOutlineHeart } from 'react-icons/ai'
+import { db } from '../db/usersDB';
+import { useSelector } from 'react-redux'
 
-const Image = React.forwardRef((props, ref) => (
+const Image = React.forwardRef((props, ref) => {
+	
+	const { username } = useSelector((state) => state.users)
+	const imageLikedHandler = async () => {
+		if (db.status == "open")
+		{
+			console.log("username: ", username)
+			 db.get(username, async (err, res)  => {
+				console.log("reached the error exception and inserting the id of: ", props.id, "for the user ", username)
+				if (err)
+					await db.put(username, props.id)
+				else
+					await db.put(username, res)
+				if (res)	
+					console.log(res)
+			})
+
+		}
+		return ;
+	}
+
+	return (
 		<>
 			<article className="shadow-md bg-white rounded-3xl p-5" ref={ref}>
 				<img
@@ -27,14 +50,12 @@ const Image = React.forwardRef((props, ref) => (
 					<div>
 						<ul className="text-slate-600 text-sm text-right">
 							<li>{Math.floor(Math.random() * 20)}k vues</li>
-							<li style={{verticalAlign: "middle", display: "inline-block"}}>{props.likes}<AiOutlineHeart onClick={() => {
-								console.log("hehe u clicked me wlh")
-							}}/></li>
+							<li style={{verticalAlign: "middle", display: "inline-block"}}>{props.likes}<AiOutlineHeart onClick={imageLikedHandler}/></li>
 						</ul>
 					</div>
 				</article>
 			</article>
 		</>
-))
+)})
 
 export default Image;

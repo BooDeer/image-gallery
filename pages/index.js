@@ -3,12 +3,13 @@ import AuthStyles from '../styles/Auth.module.css'
 import { BsGoogle } from 'react-icons/bs';
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from 'next/router'
-
+import { db } from '../db/usersDB';
 
 
 
 export default function Home() {
 	const router = useRouter()
+
 
 	const validateForm = (e) => {
 		e.preventDefault();
