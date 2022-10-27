@@ -1,20 +1,12 @@
 import GalleryStyles from '../styles/Gallery.module.css'
-
+import { BsFilterRight } from 'react-icons/bs';
+import NavBar from '../components/navBar';
+import GalleryImages from '../components/GalleryImages';
 export default function Gallery() {
 	return (
 		<div className={GalleryStyles.container}>
-			<div>
-				<div>
-					<label>
-						<select name="cars" id="cars">
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="opel">Opel</option>
-							<option value="audi">Audi</option>
-						</select>
-					</label>
-				</div>
-			</div>
+			{/* <NavBar /> */}
+			<GalleryImages />
 		</div>
 	)
 }
