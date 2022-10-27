@@ -28,7 +28,10 @@ export default function Home() {
 				});
 		}
 		else if ((e.target.email.value == "muser1" && e.target.password.value == "mpassword1") || ((e.target.email.value == "muser2" && e.target.password.value == "mpassword2")))
-			router.push("/gallery")
+			router.push({
+				pathname: "/gallery",
+				query: {user: e.target.email.value}
+			})
 		else
 		{
 			toast('🤔 Informations de connexion invalides.', {

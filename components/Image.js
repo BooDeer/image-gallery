@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { AiOutlineHeart } from 'react-icons/ai'
 
 const Image = React.forwardRef((props, ref) => (
 		<>
 			<article className="shadow-md bg-white rounded-3xl p-5" ref={ref}>
 				<img
-				src={props.urls.full}
+				src={props.urls.small}
 				alt={props.user.name}
 				// loading="lazy"
 				className="h-52 w-full object-cover rounded-3xl md:h-80"/>
@@ -27,7 +27,9 @@ const Image = React.forwardRef((props, ref) => (
 					<div>
 						<ul className="text-slate-600 text-sm text-right">
 							<li>{Math.floor(Math.random() * 20)}k vues</li>
-							<li>{props.likes} Likes</li>
+							<li style={{verticalAlign: "middle", display: "inline-block"}}>{props.likes}<AiOutlineHeart onClick={() => {
+								console.log("hehe u clicked me wlh")
+							}}/></li>
 						</ul>
 					</div>
 				</article>
