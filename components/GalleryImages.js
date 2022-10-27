@@ -9,19 +9,21 @@ export default function GalleryImages() {
 	const [pageNumber, setPagenumber] = useState(1);
 	const { gallery, error, hasMore, loading } = useGetImages(pageNumber);
 
-	const observer = useRef();
-	const lastImageElementRef = useCallback(node => {
-		if (loading) return
-		if (observer.current) observer.current.disconnect()
-		observer.current = new IntersectionObserver(entries => {
-			if (entries[0].isIntersecting && hasMore)
-			{
-				setPagenumber(prevPageNumber => prevPageNumber + 1)
-			}
+	// const observer = useRef();
+	// const lastImageElementRef = useCallback(node => {
+	// 	if (loading) return
+	// 	if (observer.current) observer.current.disconnect()
+	// 	observer.current = new IntersectionObserver(entries => {
+	// 		if (entries[0].isIntersecting && hasMore)
+	// 		{
+	// 			setPagenumber(prevPageNumber => prevPageNumber + 1)
+	// 		}
+	// 	})
 
-		})
-		if (node) observer.current.observe(node)
-	}, [loading, hasMore]);
+
+
+	// 	if (node) observer.current.observe(node)
+	// }, [loading, hasMore]);
 	// useEffect(() => {
 	// 	const fetchImages = async()  => {
 	// 		console.log(process.env.api_key)
@@ -32,6 +34,22 @@ export default function GalleryImages() {
 	// 	}
 	// 	fetchImages();
 	// }, [])
+
+	const getNextPage = () => {
+		if (hasMore)
+		{
+			setPagenumber(prevPageNumber => prevPageNumber + 1)
+			// useGetImages(pageNumber);
+		}
+	}
+
+	const getPreviousPage = () => {
+		if (pageNumber > 1)
+		{
+			setPagenumber(prevPageNumber => prevPageNumber - 1);
+		}
+	}
+
 	return (
 		<>
 
@@ -41,18 +59,22 @@ export default function GalleryImages() {
 						{gallery.map((image, index) => {
 							if (gallery.length === index + 1)
 								return (
-									<Image key={index} {...image} ref={lastImageElementRef}/>
-									// <div key={index} ref={lastImageElementRef}>{index}</div>
+									<Image key={image.id} {...image}/>
+									// <div key={index}>{index}</div>
 								)
 							else
 								return (
-									<Image key={index} {...image}/>
+									<Image key={image.id} {...image}/>
 									// <div key={index}>{index}</div>
 								)
 						})}			
 					</div>
 					<div>{loading && 'Loading...'}</div>
 					<div>{error && 'Error'}</div>
+					<div>
+						<button onClick={getPreviousPage}>Previous</button>
+						<button onClick={getNextPage}>Next</button>
+					</div>
 				</div>)
 			}
 		</>
