@@ -23,7 +23,7 @@ export default function Gallery() {
 
 	return (
 		<div className={GalleryStyles.container}>
-			{/* <NavBar /> */}
+			<NavBar />
 			{router.query.user ? <GalleryImages /> : <p>Please login <a href='http://localhost:3000'>here</a></p>}
 		</div>
 	)

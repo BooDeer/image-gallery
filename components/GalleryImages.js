@@ -31,11 +31,9 @@ export default function GalleryImages() {
 		const getLikedImages = async () => {
 			if (username)
 			{
-				// const data = await db.get(username);
 				db.get(username, (err, res) => {
 					if (res)
 					{
-						console.log(res.liked)
 						setImages(res.liked);
 					}
 				})
@@ -53,12 +51,10 @@ export default function GalleryImages() {
 							if (gallery.length === index + 1)
 								return (
 									<Image key={index} {...image} ref={lastImageElementRef} likedPictures={images}/>
-									// <div key={index} ref={lastImageElementRef}>{index}</div>
 								)
 							else
 								return (
 									<Image key={index} {...image} likedPictures={images}/>
-									// <div key={index}>{index}</div>
 								)
 						})}			
 					</div>

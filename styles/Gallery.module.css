@@ -63,6 +63,10 @@
 	transform: translate(-50%, -50%);
 }
 
+.topnavCentered button {
+	margin-right: 5px;
+}
+
 .topnav label {
 	position:absolute;
 	top: 50%;

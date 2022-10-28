@@ -13,6 +13,20 @@ const Image = React.forwardRef((props, ref) => {
 	const { username } = useSelector((state) => state.users)
 	const [liked, setLiked] = useState(props.likedPictures.includes(props.id) ? true : false)
 
+	useEffect(() => {
+		const getLikedImages = async () => {
+			if (username)
+			{
+				db.get(username, (err, res) => {
+					if (res)
+					{
+						setLiked(res.liked.includes(props.id) ? true : false);
+					}
+				})
+			}
+		}
+		getLikedImages();
+	}, [username])
 	const imageLikedHandler = async (e, id) => {
 		
 		let table = [];
@@ -76,7 +90,7 @@ const Image = React.forwardRef((props, ref) => {
 						/>
 						<ul className="ml-3">
 							<li className="font-bold text-slate-800">
-								{props.user.name}
+								{props.user.name.slice(0, 10)}
 							</li>
 						</ul>
 					</div>
