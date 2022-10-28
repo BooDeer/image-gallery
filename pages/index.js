@@ -13,8 +13,6 @@ export default function Home() {
 
 	const validateForm = (e) => {
 		e.preventDefault();
-		console.log("Reached here")
-		// alert(`So your name is ${e.target.email.value}?`);
 		if (e.target.email.value == "muser3" && e.target.password.value == "mpassword3")
 		{
 			toast('👻 Ce compte a été bloqué.', {
@@ -56,9 +54,9 @@ export default function Home() {
 				<p className={AuthStyles.welcomeMsg}>Welcome back! Please enter your details</p>
 			</div>
 			<form onSubmit={validateForm} >
-				<label for="email">Email</label>
+				<label htmlFor="email">Email</label>
 				<input  className={AuthStyles.inputBoxes} type="text" id="email" name="email" placeholder='Enter your email'/> 
-				<label for="password">Password</label>
+				<label htmlFor="password">Password</label>
 				<input className={AuthStyles.inputBoxes}  type="password" id="password" name="password" placeholder='********'/>
 
 				<input type="checkbox" id="remembermonth" name="remembermonth" value="remembermonth" className={AuthStyles.checkBox}/><p className={AuthStyles.checkBox}>Remember for 30 days </p>

@@ -6,20 +6,25 @@ import { useRouter } from 'next/router';
 import { db } from '../db/usersDB'
 import { useSelector, useDispatch } from 'react-redux'
 import { addUsername } from '../store/currUser';
+import { useEffect } from 'react';
 
 export default function Gallery() {
 	const router = useRouter()
-	const { username } = useSelector((state) => state.users);
 	const dispatch = useDispatch();
-	if (router.query.user)
-	{
-		dispatch(addUsername(router.query.user))
-	}
+
+	useEffect(() => {
+		if (router.query.user)
+		{
+			dispatch(addUsername(router.query.user))
+			if (router.query.user != 'muser1' && router.query.user != 'muser2')
+				router.push("/")
+		}
+	}, [router.query.user])
 
 	return (
 		<div className={GalleryStyles.container}>
 			{/* <NavBar /> */}
-			<GalleryImages />
+			{router.query.user ? <GalleryImages /> : <p>Please login <a href='http://localhost:3000'>here</a></p>}
 		</div>
 	)
 }
