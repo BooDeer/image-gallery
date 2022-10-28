@@ -12,6 +12,7 @@ const Image = React.forwardRef((props, ref) => {
 	
 	const { username } = useSelector((state) => state.users)
 	const [liked, setLiked] = useState(props.likedPictures.includes(props.id) ? true : false)
+	const [likes, setLikes] = useState(props.likes)
 
 	useEffect(() => {
 		const getLikedImages = async () => {
@@ -27,9 +28,11 @@ const Image = React.forwardRef((props, ref) => {
 		}
 		getLikedImages();
 	}, [username])
+
 	const imageLikedHandler = async (e, id) => {
 		
 		let table = [];
+		setLikes(prevLikes => prevLikes + 1);
 		db.get(username, async function(err, res) {
 			if (err)
 			{
@@ -56,6 +59,7 @@ const Image = React.forwardRef((props, ref) => {
 
 	const imageUnlikeHandler = async (e, id) =>
 	{
+		setLikes(prevLikes => prevLikes > 0 ? prevLikes - 1 : prevLikes);
 		setLiked(false);
 		let deltable;
 		db.get(username, async function(err, res) {
@@ -98,7 +102,7 @@ const Image = React.forwardRef((props, ref) => {
 					<div>
 						<ul className="text-slate-600 text-sm text-right">
 							<li>{props.likes}k vues</li>
-							<li style={{verticalAlign: "middle", display: "inline-block"}}>{props.likes}{likedButton}</li>
+							<li style={{verticalAlign: "middle", display: "inline-block"}}>{likes}{likedButton}</li>
 						</ul>
 					</div>
 				</article>
