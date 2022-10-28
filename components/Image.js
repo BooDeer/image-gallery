@@ -33,7 +33,8 @@ const Image = React.forwardRef((props, ref) => {
 		db.get(username, async function(err, res) {
 			if (err)
 			{
-				db.put(username, {liked: id})
+				table.push(id)
+				db.put(username, {liked: table})
 			}
 			else
 			{
